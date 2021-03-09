@@ -1,0 +1,76 @@
+Activity 1
+
+== Global Relations==
+
+Kids(kidId, name, address, age)
+Toys(toyId, name,  price)
+Requests(kidId, toyId, willingness)
+
+Relations:
+  - Requests(kidId) -> Kids(kidId)
+  - Requests(toyId) -> Toys(toyId)
+
+== Fragments ==
+
+# Vertical Fragmentation
+
+K1 = Kids[kidId, name]
+K2 = Kids[kidId, address, age]
+
+Complete and disjoint.
+You need to do a joint to reconstruct them.
+
+------------------------------
+
+# Horizontal Fragmentation
+
+T1 = Toys(price >= 150)
+T2 = Toys(price < 150)
+
+Complete and disjoint (if we do not have null values)
+Noncomplete and disjoint (if we do have null values)
+
+-----------------------------
+
+# Derive Fragmentation (info from one structure to partition the other)
+
+R1 = Request (left semijoint) T1
+R2 = Request (left semijoint) T2
+
+Complete
+
+Left semijoint = union of tables without right attributes
+
+Vertical = joint
+Horizontal = union
+
+
+=========================================================
+=========================================================
+=========================================================
+
+Activity 2
+
+1 TB of data in the disk (not taken into account but disk are read in pages)
+Network (star architecture) => 1GB/s (1 hope) for each link.
+
+1) Full Table Scan
+2) One Random Access (e.g 100 bytes)
+
+Scenario 1:
+  1) latency + 1TB/100MB = 5*10^-3 + 1*10^4 seconds
+  2) latency + transfer = 5*10^-3 + (100 / 100*10^6 = 10^-6)
+
+Scenario 2:
+  1) latency + (1TB/100MB)/100 = 5*10^-3 + (1*10^4/10^2) = 5*10^-3 + 10^2 seconds
+  2) latency (read from one disk) (same as scenario 1)
+
+Scenario 3:
+  1) latency(disk + LAN) + (1TB/100MB)/100 (same as in scenario 2)
+       Network is faster than disk(you can always send faster than reading from disk)
+  2) latency(disk + network) + transfer_disk + transfer_network (only one machine is working)
+     Taking into account that there is a coordinator in the middle that receives the requests.
+
+
+
+
