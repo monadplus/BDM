@@ -66,7 +66,9 @@ Lineage graph: parents
 
 * Slide 32
 
-Narrow dependencies := do not change the key, mapping one to one, can be keep in memory.
+Narrow dependencies:
+- can be kept in memory
+- do not change the key => do not shuffle data
 
 Light blue square = RDD
 Darker blue square = partition inside RDD
@@ -75,7 +77,7 @@ co-partitioned ~ share the same key.
 
 * Slide 33
 
-Wide dependencies := requires write and read from one stage to the other.
+Wide dependencies := requires write and read (disk) from one stage to the other.
 
 * Slide 34
 * Slide 35
